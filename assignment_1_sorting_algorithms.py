@@ -116,11 +116,12 @@ class Chocolate:
                 f"type={self.type}, id={self.id})")
 
 class Student:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.chocolate = None
 
     def __repr__(self):
-        return f"Student(chocolate={self.chocolate})"
+        return f"Student(name={self.name}, chocolate={self.chocolate})"
 
 def find_student_with_chocolate(students, target, by_weight=True):
     left, right = 0, len(students) - 1
@@ -135,15 +136,27 @@ def find_student_with_chocolate(students, target, by_weight=True):
             right = mid - 1
     return -1  # Target not found
 
-students_with_chocolates = [Student() for _ in range(3)]
+# Creating students with real names and assigning chocolates
+students_with_chocolates = [
+    Student("Khalifa"),
+    Student("Messi"),
+    Student("Aziz")
+]
 students_with_chocolates[0].chocolate = Chocolate(5, 2, 'Almond', '002')
 students_with_chocolates[1].chocolate = Chocolate(6, 3, 'Hazelnut', '004')
 students_with_chocolates[2].chocolate = Chocolate(7, 4, 'Peanut Butter', '005')
 
-# Test cases
+# Test cases with real names
 index_by_weight = find_student_with_chocolate(students_with_chocolates, 6, by_weight=True)
-index_by_price = find_student_with_chocolate(students_with_chocolates, 3, by_weight=False)
+index_by_price = find_student_with_chocolate(students_with_chocolates, 4, by_weight=False)
 
-print(f"Index by Weight: {index_by_weight}, Student: {students_with_chocolates[index_by_weight]}")
-print(f"Index by Price: {index_by_price}, Student: {students_with_chocolates[index_by_price]}")
+# Displaying results
+if index_by_weight != -1:
+    print(f"Index by Weight: {index_by_weight}, Student: {students_with_chocolates[index_by_weight]}")
+else:
+    print("No student found with the specified chocolate weight.")
 
+if index_by_price != -1:
+    print(f"Index by Price: {index_by_price}, Student: {students_with_chocolates[index_by_price]}")
+else:
+    print("No student found with the specified chocolate price.")
